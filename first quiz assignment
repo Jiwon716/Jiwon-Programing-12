@@ -1,0 +1,106 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+class Question {
+    private String question;
+    private String[] choices;
+    private int answer;
+    private int questionType;
+
+    public Question(String q, String[] c, int a) {
+        this.question = q;
+        this.choices = c;
+        this.answer = a;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public String[] getMultipleChoices() {
+        return choices;
+    }
+
+    public int getAnswer() {
+        return answer;
+    }
+}
+
+
+
+class Quiz {
+    private ArrayList<Question> questions;
+
+    // Constructor
+    public Quiz() {
+        questions = new ArrayList<Question>();
+    }
+
+    // add a single question
+    public void addQuestion(Question q) {
+        questions.add(q);
+    }
+
+    // execute stored quiz
+    public void executeQuiz() {
+        Scanner scanner = new Scanner(System.in);
+        int score = 0;
+
+        for (Question q : questions) {
+            System.out.println(q.getQuestion());
+            String[] choices = q.getMultipleChoices();
+            for (int i = 0; i < choices.length; i++) {
+                System.out.println(i + 1 + ") " + choices[i].trim());
+            }
+            System.out.print("Choose your answer: ");
+
+            int inputAnswer = scanner.nextInt();
+            if (inputAnswer == q.getAnswer()) {
+                System.out.println("Your answer is correct!");
+                score++;
+            } else {
+                System.out.println("Your answer is incorrect!");
+            }
+            System.out.println(" ");
+        }
+
+        System.out.println("================================");
+        System.out.println("Well done!");
+        System.out.println("Quiz is completed!");
+        System.out.println("Your score is " + score + " out of " + questions.size());
+        System.out.println("================================");
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Quiz q = new Quiz();
+        boolean buildQuiz = true;
+
+        System.out.println("Now you build questions for a quiz!");
+        int numQuiz = 0;
+        do {
+            System.out.println("Enter a question:");
+            String inputQuestion = scanner.nextLine();
+            System.out.println("Enter the multiple choices (separated by commas): ");
+            String multipleChoice = scanner.nextLine();
+            System.out.println("Enter the correct answer (1, 2, 3, etc.): ");
+            int inputAnswer = scanner.nextInt();
+            scanner.nextLine();
+            q.addQuestion(new Question(inputQuestion, multipleChoice.split(","), inputAnswer));
+            System.out.println("Now you build in total" + ++numQuiz + " questions.");
+            System.out.println("Do you want to add more questions? (y/n)");
+            buildQuiz = scanner.nextLine().equals("y");
+        } while (buildQuiz);
+
+        System.out.println("Now your Quiz is started!!!");
+        System.out.println("Loading ... ");
+
+        q.executeQuiz();
+    }
+
+}
