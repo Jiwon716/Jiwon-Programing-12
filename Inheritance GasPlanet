@@ -1,0 +1,41 @@
+import java.awt.*;
+
+public class GasPlanet extends Planet {
+
+    private boolean hasRings;
+    private Color color;
+
+    public GasPlanet(int orbitTime, String designation, Color color) {
+        super(orbitTime, designation);
+        this.color = color;
+    }
+
+    public boolean isHasRings() {
+        return hasRings;
+    }
+
+    public void setHasRings(boolean hasRings) {
+        this.hasRings = hasRings;
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+    public void setColor(Color c) {
+        this.color = c;
+    }
+
+    @Override
+    public String toString(){
+    
+        return "GasPlanet{" +
+                "designation='" + super.getDesignation() + '\'' +
+                ", orbitTime=" + super.getOrbitTime() +
+                ", moons=" + super.getMoons() +
+                ", hasRings='" + this.isHasRings() + '\'' +
+                ", color='" + this.getColor() + '\'' +
+                '}';
+    }
+
+}
