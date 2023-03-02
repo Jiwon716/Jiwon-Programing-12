@@ -1,0 +1,69 @@
+import javax.management.loading.PrivateMLet;
+import javax.print.attribute.standard.PrinterName;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Objects;
+
+public class Planet {
+
+    private int orbitTime;
+    private ArrayList<Moon> moons = new ArrayList<Moon>();
+    private String designation;
+
+    public Planet() {}
+
+    public Planet(int orbitTime, String designation) {
+        super();
+        this.orbitTime = orbitTime;
+        this.designation = designation;
+    }
+
+    public String getDesignation() {
+        return this.designation;
+    }
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public int getOrbitTime() {
+        return this.orbitTime;
+    }
+
+    public void setOrbitTime(int orbitTime) {
+        this.orbitTime = orbitTime;
+    }
+
+    public void addMoon(Moon moon) {
+        this.moons.add(moon);
+    }
+
+    public ArrayList<Moon> getMoons(){
+        return this.moons;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (! (obj instanceof Planet)) {
+            return false;
+        }
+
+        Planet p = (Planet) obj;
+
+        if (this.designation == p.getDesignation() && this.orbitTime == p.getOrbitTime())
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public String toString() {
+    
+        return "Planet{" +
+                "orbitTime=" + orbitTime +
+                ", moons=" + moons +
+                ", designation='" + designation + '\'' +
+                '}';
+    }
+}
