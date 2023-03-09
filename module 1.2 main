@@ -1,0 +1,31 @@
+package com.jiwon.module1._2;
+
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+    
+        ArrayList shapes = new ArrayList<TwoDShape>();
+        shapes.add(new Circle(2));
+        shapes.add(new Triangle(1, 1, 1));
+
+        for (Object o : shapes) {
+        
+            System.out.println("Shape information: ");
+
+            if (o instanceof Circle) {
+            
+                System.out.println("  Area: " + ((Circle) o).getArea());
+                System.out.println("  Description: " + o.toString());
+                
+            }
+            
+            else if (o instanceof Triangle) {
+            
+                System.out.println("  Area: " + ((Triangle) o).getArea());
+                System.out.println("  Description: " + o.toString());
+            }
+        }
+    }
+}
