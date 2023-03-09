@@ -1,0 +1,46 @@
+package com.jiwon.module1._4;
+
+/**
+ * The Circle class extends the TwoDShape class.
+ * Three private values, width, height and colour.
+ */
+
+public class Circle extends TwoDShape {
+
+    public final double PI; // A double value for PI
+    private double radius; // A double value for radius
+
+    /**
+     * Constructor for Circle class
+     * @param radius the length of a circle's radius
+     */
+    public Circle(double radius) {
+    
+        this.radius = radius;
+        this.PI = Math.PI;
+    }
+
+    /**
+     * Calculate the area of circle
+     * @return the area of the circle using PI and radius
+     */
+    @Override
+    public double getArea() {
+    
+        return this.PI * this.radius * this.radius;
+    }
+
+    /**
+     * Describe the content of the Circle class.
+     * @return String describes the circle with PI and radius.
+     */
+    @Override
+    public String toString() {
+    
+        return "This is a Circle shape: radius (" +
+                this.radius +
+                ") and PI (" +
+                this.PI +
+                ")";
+    }
+}
