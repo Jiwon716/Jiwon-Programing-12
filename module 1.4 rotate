@@ -1,0 +1,20 @@
+package com.jiwon.module1._4;
+
+/**
+ * The Rotate interface has the angle field.
+ * The interface defines three methods adjusting the angle.
+ */
+ 
+public interface Rotate {
+
+    public double angle = 0;
+
+    // Define the rotate method adjusting the angle for 90 degree.
+    public void rotate90();
+
+    // Define the rotate method adjusting the angle for 180 degree.
+    public  void rotate180();
+
+    // Define the rotate method adjusting the angle for the given degree.
+    public  void rotate(double degree);
+}
