@@ -1,0 +1,51 @@
+package com.jiwon.module1._1;
+
+public class Triangle extends TwoDShape{
+
+    private double side1;
+    private double side2;
+    private double side3;
+
+    public Triangle (double width, double height) {
+    
+        super(width, height);
+        
+    }
+
+    public Triangle (double side1, double side2, double side3) {
+    
+        this.side1 = side1; // left side
+        this.side2 = side2; // right side
+        this.side3 = side3; // width
+        super.setHeight(this.heronsHeight());
+        
+    }
+
+    private double heronsHeight() {
+    
+        // Using heron's formula to find the area
+        double s = (this.side1 + this.side2 + this.side3) / 2;
+        double area = Math.sqrt(s * (s - this.side1) * (s - this.side2) * (s - this.side3));
+        double h = (area * 2) / this.side3; //
+        return h;
+        
+    }
+
+    @Override
+    public double getArea() {
+    
+        if (this.side1 != 0) {
+        
+            double s = (this.side1 + this.side2 + this.side3) / 2;
+            // Using heron's formula to find the area
+            double area = Math.sqrt(s * (s - this.side1) * (s - this.side2) * (s - this.side3));
+            return area;
+        }
+        
+        else {
+        
+            return super.getArea()/2;
+            
+        }
+    }
+}
