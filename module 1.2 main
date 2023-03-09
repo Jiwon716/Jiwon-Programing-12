@@ -1,0 +1,38 @@
+package com.jiwon.module1._3;
+
+import com.jiwon.module1._2.TwoDShape;
+
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+    
+        ArrayList shapes = new ArrayList<TwoDShape>();
+        shapes.add(new com.jiwon.module1._3.Circle(2));
+        com.jiwon.module1._3.Triangle t = new com.jiwon.module1._3.Triangle(1, 1, 1);
+        t.rotate90();
+        shapes.add(t);
+
+        com.jiwon.module1._3.Triangle t1 = new com.jiwon.module1._3.Triangle(1, 1, 1);
+        t1.rotate180();
+        shapes.add(t1);
+
+        for (Object o : shapes) {
+        
+            System.out.println("Shape information: ");
+
+            if (o instanceof Circle) {
+            
+                System.out.println("  Area: " + ((Circle) o).getArea());
+                System.out.println("  Description: " + o.toString());
+            }
+            
+            else if (o instanceof com.jiwon.module1._3.Triangle) {
+            
+                System.out.println("  Area: " + ((Triangle) o).getArea());
+                System.out.println("  Description: " + o.toString());
+            }
+        }
+    }
+}
