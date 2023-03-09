@@ -1,0 +1,113 @@
+package com.jiwon.module1._4;
+
+/**
+ * Define Colour enum
+ */
+enum Colour {
+
+    RED,
+    GREEN,
+    BLUE,
+    NONE
+}
+
+/**
+ * The TwoDShape class is the abstract class.
+ * Three private values, width, height and colour.
+ */
+public abstract class TwoDShape {
+
+    private double width;
+    private double height;
+    private Colour colour;
+
+    /**
+     * This constructor takes three parameters.
+     * @param width: the width of 2D shape
+     * @param height: the height of 2D shape
+     * @param colour: the color of 2D shape
+     */
+    public TwoDShape(double width, double height, Colour colour){
+    
+        this.width = width;
+        this.height = height;
+        this.colour = colour;
+    }
+
+    /**
+     * Empty constructor
+     */
+    public TwoDShape() {
+    
+        // empty constructor
+    }
+
+    /**
+     * Define Getter functions
+     */
+
+    /**
+     * Getter for height
+     * @return the height of 2D shape
+     */
+    public double getHeight() {
+    
+        return this.height;
+    }
+
+    /**
+     * Getter for width
+     * @return the width of 2D shape
+     */
+    public double getWidth() {
+    
+        return this.width;
+    }
+
+    /**
+     * Getter for colour
+     * @return the colour of 2D shape
+     */
+    public Colour getColour() { 
+    
+        return this.colour; 
+    }
+
+    /**
+     * Define Setter functions
+     */
+
+    /**
+     * Setter for height
+     * @param double height: the received value is used for the height
+     */
+    public void setHeight(double height) {
+    
+        this.height = height;
+    }
+
+    /**
+     * Setter for width
+     * @param double width: the received value is used for the width
+     */
+    public void setWidth(double width) {
+    
+        this.width = width;
+    }
+
+    /**
+     * Setter for colour
+     * @param double colour: the received value is used for the colour
+     */
+    public void setColour(Colour colour) {
+    
+        this.colour = colour;
+    }
+
+    /**
+     * Define getArea as an abstract class
+     * Detailed function needs to be implemented in a class extends the TwoDShape class
+     */
+    public abstract double getArea();
+
+}
