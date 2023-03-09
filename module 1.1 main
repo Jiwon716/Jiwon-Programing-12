@@ -1,0 +1,14 @@
+package com.jiwon.module1._1;
+
+public class Main {
+
+    public static void main(String[] args) {
+    
+        TwoDShape td = new TwoDShape(1, 1);
+        System.out.println("Two dimension shape area: " + td.getArea());
+
+        Triangle tr = new Triangle(1, 1, 1);
+        System.out.println("Triangle shape area: " + tr.getArea());
+        
+    }
+}
