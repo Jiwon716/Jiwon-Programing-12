@@ -1,0 +1,143 @@
+package com.jiwon.module1._4;
+
+/**
+ * The Triangle class is the class extends TwoDShape and implements Rotate interface
+ * Three private values, i.e., side1, side2 and side3.
+ * One public variable 'angle' to implement Rotate interface.
+ */
+
+public class Triangle extends TwoDShape implements Rotate {
+
+    private double side1;
+    private double side2;
+    private double side3;
+    public double angle = 0;
+
+    /**
+     * Class constructor with width, height and colour
+     * @param width
+     * @param height
+     * @param colour
+     */
+    public Triangle (double width, double height, Colour colour) {
+    
+        super(width, height, colour);
+    }
+
+    /**
+     * Class constructor with three sides of Triangle
+     * @param side1
+     * @param side2
+     * @param side3
+     */
+    public Triangle (double side1, double side2, double side3) {
+    
+        this.side1 = side1; // consider this as left side
+        this.side2 = side2; // consider this as right side
+        this.side3 = side3; // consider this as width
+        super.setHeight(this.heronsHeight()); // calculate the height
+    }
+
+    /**
+     * Calculate height using the given three side values
+     * @return the height of the Triangle instance
+     */
+    private double heronsHeight() {
+    
+        // Using heron's formula to find the area
+        double s = (this.side1 + this.side2 + this.side3) / 2;
+        double area = Math.sqrt(s * (s - this.side1) * (s - this.side2) * (s - this.side3));
+        double height = (area * 2) / this.side3; //
+        return height;
+    }
+
+    /**
+     * Rotate angle to 90 degree.
+     * No param and return.
+     */
+    @Override
+    public void rotate90() {
+    
+        this.angle = 90;
+    }
+
+    /**
+     * Rotate angle to 180 degree.
+     * No param and return.
+     */
+    @Override
+    public void rotate180() {
+    
+        this.angle = 180;
+    }
+
+    /**
+     * Rotate angle to the given parameter.
+     * @param degree double type number
+     * @return none
+     */
+    @Override
+    public void rotate(double degree) {
+    
+        this.angle = degree;
+    }
+
+    /**
+     * Compute area of the object using Heron's formula.
+     * See  https://youtu.be/a1PR9O1Va84
+     * @return calculate area
+     */
+    @Override
+    public double getArea() {
+    
+        // in case the constructor with three sides value is called
+        if (this.side1 != 0) {
+        
+            double s = (this.side1 + this.side2 + this.side3) / 2;
+            // Using heron's formula to find the area
+            double area = Math.sqrt(s * (s - this.side1) * (s - this.side2) * (s - this.side3));
+            return area;
+        }
+        // in case the Triangle instance has width and height
+        else {
+        
+            return (super.getWidth() * super.getHeight()) / 2;
+        }
+    }
+
+    /**
+     * Override toString function
+     * @return String with detailed Triable information
+     */
+    @Override
+    public String toString() {
+    
+        // in case the Triangle instance has three side values
+        if (this.side1 != 0) {
+        
+            return "This is a Triagle shape: side1 (" +
+                    this.side1 +
+                    "), side2 (" +
+                    this.side2 +
+                    "), side3 (" +
+                    this.side3 +
+                    "), and angle (" +
+                    this.angle +
+                    ")";
+        }
+        // in case the Triangle instance has width and height
+        else {
+        
+            return "This is a Triagle shape: width (" +
+                    this.getWidth() +
+                    "), height (" +
+                    this.getHeight() +
+                    "), colour (" +
+                    this.getColour() +
+                    "), and angle (" +
+                    this.angle +
+                    ")";
+        }
+    }
+
+}
