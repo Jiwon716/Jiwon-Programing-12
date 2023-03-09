@@ -1,0 +1,44 @@
+package com.jiwon.module1._3;
+
+public abstract class TwoDShape {
+
+    private double width;
+    private double height;
+
+    public TwoDShape(double width, double height){
+    
+        this.width = width;
+        this.height = height;
+    }
+
+    public TwoDShape() {
+    
+        // empty constructor
+    }
+
+    // Getter
+    public double getHeight() {
+    
+        return this.height;
+    }
+
+    public double getWidth() {
+    
+        return this.width;
+    }
+
+    // Setter
+    public void setHeight(double height) {
+    
+        this.height = height;
+    }
+
+    public void setWidth(double width) {
+    
+        this.width = width;
+    }
+
+    public abstract double getArea();
+
+}
+
