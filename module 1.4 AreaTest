@@ -1,0 +1,48 @@
+package com.jiwon.module1._4;
+
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ * The AreaTest class tests getArea() methods of the Sub-class of the TwoDShape class
+ * There are three test cases, one for Circle, and two for Triangle
+ */
+
+public class AreaTest {
+
+    /**
+     * Test getArea() of the Circle class
+     */
+    @Test public void testAreaCircle(){
+    
+        // radius 10, area = radius * radius * PI
+        assertEquals(10 * 10 * Math.PI, new Circle(10).getArea(), 0.001);
+    }
+
+    /**
+     * Test the getArea() of the Triangle class.
+     * In this case, the Triangle class is constructed with three sides.
+     */
+    @Test public void testAreaTriagle_withSides(){
+    
+        // three sides 3, 4, 5 ==> area is 6.00
+        double S = (3 + 4 + 5) / 2;
+        double area = Math.sqrt(S * (S - 3) * (S - 4) * (S - 5));
+        assertEquals(area, new Triangle(3, 4, 5).getArea(), 0.001);
+    }
+
+    /**
+     * Test the getArea() of the Triangle class.
+     * In this case, the Triangle class is constructed with height and width.
+     */
+    @Test public void testAreaTriagle_withHeight(){
+    
+        // height 3, width 4, colour RED
+        // area is (3*4)/2
+        assertEquals((3*4)/2, new Triangle(3, 4, Colour.RED).getArea(), 0.001);
+    }
+
+}
