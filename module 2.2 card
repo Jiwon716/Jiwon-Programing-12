@@ -1,0 +1,66 @@
+package com.jiwon.module2._2;
+
+enum Suits {
+
+    SPADES,
+    
+    HEARTS,
+    
+    DIAMONDS,
+    
+    CLUBS;
+}
+
+enum Ranks {
+
+    ACE(1), DEUCE(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(11), QUEEN(12), KING(13);
+
+    private final int value;
+
+    Ranks(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+    
+        return value;
+    }
+}
+
+
+public class Card {
+
+    private final Suits suit;
+    private final Ranks rank; 
+    private final boolean isFace;
+    
+    public Card (Suits suit, Ranks rank) {
+    
+        this.suit = suit;
+        this.rank = rank;
+       
+        if (rank == Ranks.ACE || rank == Ranks.JACK || rank == Ranks.QUEEN || rank == Ranks.KING)
+            this.isFace = true;
+        else
+            this.isFace = false;
+    }
+    
+    public boolean isFaceUp() {
+        return this.isFace;
+    }
+    
+    public Ranks getRank() {
+        return this.rank;
+    }
+    
+    public Suits getSuit() {
+        return this.suit;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Card: " + this.rank.toString() + "-" + this.suit.toString();
+    }
+
+}
