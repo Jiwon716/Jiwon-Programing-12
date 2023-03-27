@@ -1,0 +1,25 @@
+package com.jiwon.module2._1;
+
+public class Main {
+    public static void main(String[] args) {
+        
+        Planet testPlanet = new Planet("2040-PL", Planet.PlanetType.gas);
+        System.out.println(testPlanet.toString());
+        System.out.println(testPlanet.hashCode());
+
+        Planet testPlanet_1 = new Planet("2040-PL", Planet.PlanetType.gas);
+        if(testPlanet.equals(testPlanet_1)) {
+            System.out.println("Equal");
+        } else {
+            System.out.println("Different");
+        }
+
+        Planet testPlanet_2 = new Planet("2023-PL", Planet.PlanetType.gas);
+        if(testPlanet.equals(testPlanet_2)) {
+            System.out.println("Equal");
+        } else {
+            System.out.println("Different");
+        }
+
+    }
+}
