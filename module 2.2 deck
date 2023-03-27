@@ -1,0 +1,59 @@
+package com.jiwon.module2._2;
+
+import java.util.LinkedList;
+import java.util.Stack;
+
+public class Deck {
+
+    private final LinkedList<Card> cards;
+    
+    private final Stack<Card> cardStack;
+    
+    public Deck() {
+    
+        this.cards = new LinkedList<>();
+        this.cardStack = new Stack<>();
+
+        for (Suits suit : Suits.values()) {
+        
+            for (Ranks rank : Ranks.values()) {
+            
+                Card c = new Card(suit, rank);
+                this.cards.add(c);
+            }
+        }
+    }
+    
+    public void shuffleCardStack() {
+    
+        for (int i=0; i < this.cards.size(); i++) {
+        
+            int rand = (int) (Math.random() * (this.cards.size())); 
+            Card tempCard = this.cards.get(i); 
+            this.cards.set(i, this.cards.get(rand)); 
+            this.cards.set(rand, tempCard);
+        }
+        
+        System.out.println("Card deck is shuffled"); 
+        this.cardStack.addAll(this.cards); 
+    }
+    
+    public Card popCard() {
+    
+        return this.cardStack.pop();
+    }
+    
+    public LinkedList<Card> popCardsList(int numberOfCards) {
+    
+        LinkedList<Card> cardsList = new LinkedList<>();
+        
+        for (int i = 0; i < numberOfCards; i++) {
+        
+            cardsList.add(this.cardStack.pop());
+        }
+        
+        return cardsList;
+    }
+
+}
+
