@@ -1,0 +1,57 @@
+package com.jiwon.module2._1;
+
+public class Planet {
+   
+    enum PlanetType {
+        gas, rock
+    };
+
+    private String designation;
+    private double massKg;
+    private double orbitEarthYears;
+    private PlanetType type;
+
+    public Planet(String designation, PlanetType type) {
+    
+        this.designation = designation;
+        this.type = type;
+    }
+    public Planet (String designation, double massKg, double orbitEarthYears, PlanetType type) {
+    
+        this.designation = designation;
+        this.massKg = massKg;
+        this.orbitEarthYears = orbitEarthYears;
+        this.type = type;
+    }
+    
+    @Override
+    public int hashCode() {
+    
+        return designation.hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+    
+        if (obj instanceof Planet) {
+            Planet targetPlanet = (Planet) obj;
+            
+            if(this.designation.equals(targetPlanet.designation)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    @Override
+    public String toString() {
+    
+        return "Planet: designation (" +
+                this.designation +
+                ") and type (" +
+                this.type +
+                ")";
+    }
+
+}
