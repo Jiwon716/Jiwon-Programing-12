@@ -6,9 +6,12 @@ import java.util.Stack;
 public class Deck {
 
     private final LinkedList<Card> cards;
-    
     private final Stack<Card> cardStack;
-    
+
+    /**
+     * Constructor for Deck class
+     */
+     
     public Deck() {
     
         this.cards = new LinkedList<>();
@@ -17,38 +20,48 @@ public class Deck {
         for (Suits suit : Suits.values()) {
         
             for (Ranks rank : Ranks.values()) {
-            
                 Card c = new Card(suit, rank);
                 this.cards.add(c);
             }
         }
     }
-    
+
+    /**
+     * Shuffle card deck and add shuffled deck to the stack
+     */
+
     public void shuffleCardStack() {
     
         for (int i=0; i < this.cards.size(); i++) {
         
-            int rand = (int) (Math.random() * (this.cards.size())); 
-            Card tempCard = this.cards.get(i); 
-            this.cards.set(i, this.cards.get(rand)); 
+            int rand = (int) (Math.random() * (this.cards.size())); // generate a random number
+            Card tempCard = this.cards.get(i); // get a temporary card with the generated random number index
+            this.cards.set(i, this.cards.get(rand)); // swap the current index and random index card items
             this.cards.set(rand, tempCard);
         }
         
-        System.out.println("Card deck is shuffled"); 
-        this.cardStack.addAll(this.cards); 
+        System.out.println("Card deck is shuffled"); // Show that the card deck is shuffled
+        this.cardStack.addAll(this.cards); // add the shuffled card deck to the stack
     }
-    
+
+    /**
+     * pop up a card from the stack
+     */
+     
     public Card popCard() {
-    
         return this.cardStack.pop();
     }
-    
+
+    /**
+     * pop up a number of card from the stack
+     * @param numberOfCards the number of cards to pop up
+     */
+     
     public LinkedList<Card> popCardsList(int numberOfCards) {
     
         LinkedList<Card> cardsList = new LinkedList<>();
         
         for (int i = 0; i < numberOfCards; i++) {
-        
             cardsList.add(this.cardStack.pop());
         }
         
