@@ -1,0 +1,16 @@
+package com.jiwon.module2._2;
+
+import java.util.LinkedList;
+
+public class Main {
+
+    public static void main(String[] args) {
+    
+        Deck testDeck = new Deck();
+        testDeck.shuffleCardStack();
+
+        LinkedList<Card> tempCards = testDeck.popCardsList(7);
+        System.out.println("Cards: " + tempCards);
+
+    }
+}
