@@ -16,6 +16,7 @@ public class Planet {
         this.designation = designation;
         this.type = type;
     }
+    
     public Planet (String designation, double massKg, double orbitEarthYears, PlanetType type) {
     
         this.designation = designation;
