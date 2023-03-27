@@ -1,5 +1,9 @@
 package com.jiwon.module2._2;
 
+/**
+ * define suits enum
+ */
+
 enum Suits {
 
     SPADES,
@@ -9,10 +13,14 @@ enum Suits {
     DIAMONDS,
     
     CLUBS;
+    
 }
 
-enum Ranks {
+/**
+ * define ranks enum
+ */
 
+enum Ranks {
     ACE(1), DEUCE(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(11), QUEEN(12), KING(13);
 
     private final int value;
@@ -22,7 +30,6 @@ enum Ranks {
     }
 
     public int getValue() {
-    
         return value;
     }
 }
@@ -31,32 +38,59 @@ enum Ranks {
 public class Card {
 
     private final Suits suit;
-    private final Ranks rank; 
-    private final boolean isFace;
-    
+    private final Ranks rank; // 1 - Ace, 2 to 9 , 10 - Ten, 11 - Jack, 12 - Queen, 13 - King
+    private final boolean isFace; // for Ace (1), Jack (11), Queen (12) and King (13)
+
+    /**
+     * Constructor for Card class
+     * @param rank the rank information
+     * @param suit the suit information
+     */
+     
     public Card (Suits suit, Ranks rank) {
     
         this.suit = suit;
         this.rank = rank;
-       
+        
+        // if the rank is ACE or JACK or QUEEN or KING, isFace becomes true
+        
         if (rank == Ranks.ACE || rank == Ranks.JACK || rank == Ranks.QUEEN || rank == Ranks.KING)
             this.isFace = true;
+            
         else
             this.isFace = false;
     }
-    
+
+    /**
+     * Distinguish between face cards and number cards
+     * If this card is a face card, return true.
+     */
+     
     public boolean isFaceUp() {
         return this.isFace;
     }
-    
+
+    /**
+     * Getter for rank
+     */
+
     public Ranks getRank() {
         return this.rank;
     }
-    
+
+    /**
+     * Getter for suit
+     */
+     
     public Suits getSuit() {
         return this.suit;
     }
-    
+
+    /**
+     * Override toString function
+     * @return String with detailed Planet information
+     */
+     
     @Override
     public String toString()
     {
