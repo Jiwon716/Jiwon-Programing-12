@@ -1,7 +1,8 @@
 package com.jiwon.module2._1;
 
 public class Planet {
-   
+    // define planet type as enum type
+    
     enum PlanetType {
         gas, rock
     };
@@ -11,12 +12,26 @@ public class Planet {
     private double orbitEarthYears;
     private PlanetType type;
 
+    /**
+     * Constructor for Planet class
+     * @param designation the given designation for the planet
+     * @param type the planet type
+     */
+
     public Planet(String designation, PlanetType type) {
     
         this.designation = designation;
         this.type = type;
     }
-    
+
+    /**
+     * Constructor for Planet class
+     * @param designation the given designation for the planet
+     * @param massKg the mass information with Kg
+     * @param orbitEarthYears the orbit information
+     * @param type the planet type
+     */
+     
     public Planet (String designation, double massKg, double orbitEarthYears, PlanetType type) {
     
         this.designation = designation;
@@ -24,30 +39,46 @@ public class Planet {
         this.orbitEarthYears = orbitEarthYears;
         this.type = type;
     }
-    
+
+    /**
+     * Override hashCode function
+     * return the hashcode based on designation
+     * @return the hashcode
+     */
+     
     @Override
     public int hashCode() {
     
         return designation.hashCode();
     }
-    
+
+    /**
+     * Override equals function
+     * @return result based on the comparison
+     */
+
     @Override
     public boolean equals(Object obj) {
     
         if (obj instanceof Planet) {
+        
             Planet targetPlanet = (Planet) obj;
             
             if(this.designation.equals(targetPlanet.designation)) {
+            
                 return true;
             }
         }
         
         return false;
     }
-    
+
+    /**
+     * Override toString function
+     * @return String with detailed Planet information
+     */
     @Override
     public String toString() {
-    
         return "Planet: designation (" +
                 this.designation +
                 ") and type (" +
