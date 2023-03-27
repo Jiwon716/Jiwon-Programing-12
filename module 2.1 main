@@ -1,23 +1,34 @@
 package com.jiwon.module2._1;
 
 public class Main {
+
     public static void main(String[] args) {
+    
+        // Create a test planet for testing
         
         Planet testPlanet = new Planet("2040-PL", Planet.PlanetType.gas);
         System.out.println(testPlanet.toString());
         System.out.println(testPlanet.hashCode());
 
+        // Create a test planet with the same information and check equals
+        
         Planet testPlanet_1 = new Planet("2040-PL", Planet.PlanetType.gas);
+        
         if(testPlanet.equals(testPlanet_1)) {
             System.out.println("Equal");
-        } else {
+        } 
+        else {
             System.out.println("Different");
         }
 
+        // Create a test planet with different designation and check equals
+        
         Planet testPlanet_2 = new Planet("2023-PL", Planet.PlanetType.gas);
+        
         if(testPlanet.equals(testPlanet_2)) {
             System.out.println("Equal");
-        } else {
+        } 
+        else {
             System.out.println("Different");
         }
 
