@@ -1,0 +1,27 @@
+package com.jiwon.module2._5;
+
+public class Main {
+    public static void main(String[] args) {
+        CaesarCipher cc = new CaesarCipher(1);
+
+        String testStr1 = "test";
+        System.out.println("Input: " + testStr1);
+        System.out.println("Applying Caesar cipher with shift value = " + cc.getShift());
+        String enTestStr1 = cc.encryptMessage(testStr1);
+        System.out.println("Encrypted message: " + enTestStr1);
+        String deTestStr1 = cc.descryptMessage(enTestStr1);
+        System.out.println("Decrypted message: " + deTestStr1);
+
+        cc.setShift(3);
+        System.out.println("Input: " + testStr1);
+        System.out.println("Applying Caesar cipher with shift value = " + cc.getShift());
+        enTestStr1 = cc.encryptMessage(testStr1);
+        System.out.println("Encrypted message: " + enTestStr1);
+        deTestStr1 = cc.descryptMessage(enTestStr1);
+        System.out.println("Decrypted message: " + deTestStr1);
+
+
+
+
+    }
+}
