@@ -1,0 +1,21 @@
+package com.jiwon.module2._4;
+
+import java.util.Comparator;
+import java.util.Locale;
+
+public class CustomCompare implements Comparator<Word> {
+    @Override
+    public int compare(Word w1, Word w2) {
+        String new_w1 = w1.w.replaceAll("[^a-zA-Z]", "").toUpperCase();
+        String new_w2 = w2.w.replaceAll("[^a-zA-Z]", "").toUpperCase();
+
+        return new_w1.compareTo(new_w2);
+
+/*
+        str1.compareTo(str2) returns positive number, if str1 > str2
+        str1.compareTo(str2) returns negative number, if str1 < str2
+        str1.compareTo(str2) returns 0, if str1 = str2
+ */
+    }
+
+}
