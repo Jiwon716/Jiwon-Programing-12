@@ -1,0 +1,90 @@
+package com.jiwon.module2._5;
+
+import java.util.Iterator;
+import java.util.TreeMap;
+
+public class CaesarCipher {
+
+    int shift;          // between 1 and 25 representing the number of shifts.
+    int modValue = 26;
+    TreeMap<Character, Integer> caesarMap = new TreeMap<>();
+
+    public CaesarCipher(int shift) {
+        this.shift = shift;
+
+        int index = 0;
+        for (char ch = 'a'; ch <= 'z'; ++ch) {
+            caesarMap.put(ch, index++);
+        }
+    }
+
+    /**
+     * Setter for the shift index value
+     * @param shift
+     */
+    public void setShift(int shift) {
+        this.shift = shift;
+    }
+
+    /**
+     * Getter for the shift value
+     * @return
+     */
+    public int getShift() {
+        return this.shift;
+    }
+
+    /**
+     * @param rawMessage
+     * @return encrypted message using e(x) = (x + k) (mod 26)
+     */
+    public String encryptMessage(String rawMessage) {
+        StringBuilder encryptedString = new StringBuilder();
+
+        for (char c : rawMessage.toCharArray()) {
+            int originPos = caesarMap.get(c);
+            int shiftedPos = (originPos + this.shift) % modValue;
+
+            Iterator<Character> keys = caesarMap.keySet().iterator();
+
+            while (keys.hasNext()) {
+                char key = keys.next();
+                if (caesarMap.get(key) == shiftedPos) {
+                    encryptedString.append(key);
+                    break;
+                }
+            }
+        }
+        
+        return encryptedString.toString();
+    }
+
+    /**
+     * @param eMessage (encrypted message)
+     * @return decrypte message using e(x) = (x - k) (mod 26)
+     */
+    public String descryptMessage(String eMessage) {
+    
+        StringBuilder decryptedString = new StringBuilder();
+
+        for (char c : eMessage.toCharArray()) {
+            int originPos = caesarMap.get(c);
+            int shiftedPos = (originPos - this.shift) % modValue;
+
+            Iterator<Character> keys = caesarMap.keySet().iterator();
+
+            while (keys.hasNext()) {
+                char key = keys.next();
+                if (caesarMap.get(key) == shiftedPos) {
+                    decryptedString.append(key);
+                    break;
+                }
+            }
+        }
+
+        return decryptedString.toString();
+
+    }
+
+
+}
