@@ -2,6 +2,7 @@ package com.jiwon.module2._5;
 
 public class Main {
     public static void main(String[] args) {
+    
         CaesarCipher cc = new CaesarCipher(1);
 
         String testStr1 = "test";
@@ -20,6 +21,12 @@ public class Main {
         deTestStr1 = cc.descryptMessage(enTestStr1);
         System.out.println("Decrypted message: " + deTestStr1);
 
+        // Test encrypted message without shift value
+        String testStr2 = "uftu";
+        System.out.println(" ");
+        System.out.println("----- Break Cipher -----");
+        System.out.println("Encrypted message: " + testStr2);
+        System.out.println("Break Cipher : " + cc.breakEncryptedMessage(testStr2));
 
 
 
