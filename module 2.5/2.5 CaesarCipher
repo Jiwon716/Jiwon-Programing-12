@@ -1,7 +1,10 @@
 package com.jiwon.module2._5;
 
-import java.util.Iterator;
-import java.util.TreeMap;
+import com.jiwon.module2._4.Word;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 public class CaesarCipher {
 
@@ -9,13 +12,28 @@ public class CaesarCipher {
     int modValue = 26;
     TreeMap<Character, Integer> caesarMap = new TreeMap<>();
 
+    List<String> smartDictionary = new ArrayList<>();
+
     public CaesarCipher(int shift) {
+    
         this.shift = shift;
 
         int index = 0;
         for (char ch = 'a'; ch <= 'z'; ++ch) {
             caesarMap.put(ch, index++);
         }
+
+        try {
+            Scanner scanner = new Scanner(new File("words_alpha.txt"));
+            // Get each line from the file and split the line into words
+            while (scanner.hasNext()) {
+                String s = scanner.nextLine();
+                smartDictionary.add(s);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
     }
 
     /**
@@ -55,7 +73,6 @@ public class CaesarCipher {
                 }
             }
         }
-        
         return encryptedString.toString();
     }
 
@@ -64,7 +81,6 @@ public class CaesarCipher {
      * @return decrypte message using e(x) = (x - k) (mod 26)
      */
     public String descryptMessage(String eMessage) {
-    
         StringBuilder decryptedString = new StringBuilder();
 
         for (char c : eMessage.toCharArray()) {
@@ -84,6 +100,40 @@ public class CaesarCipher {
 
         return decryptedString.toString();
 
+    }
+
+    /**
+     * Break Caesar Cipher encrypted message without knowing a shift value
+     * @param eMessage
+     * @return expected original message
+     */
+    public String breakEncryptedMessage(String eMessage) {
+        StringBuilder decryptedString = new StringBuilder();
+
+        for (int tempShift=1 ; tempShift<modValue ; tempShift++) {
+            for (char c : eMessage.toCharArray()) {
+                int originPos = caesarMap.get(c);
+                int shiftedPos = (originPos - tempShift) % modValue;
+
+                Iterator<Character> keys = caesarMap.keySet().iterator();
+
+                while (keys.hasNext()) {
+                    char key = keys.next();
+                    if (caesarMap.get(key) == shiftedPos) {
+                        decryptedString.append(key);
+                        break;
+                    }
+                }
+            }
+
+            if (smartDictionary.contains(decryptedString.toString())) {
+                break;
+            } else {
+                decryptedString.setLength(0);
+            }
+        }
+
+        return decryptedString.toString();
     }
 
 
