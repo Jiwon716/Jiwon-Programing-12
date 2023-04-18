@@ -1,0 +1,32 @@
+package com.jiwon.module3._1;
+
+import java.util.Scanner;
+
+public class Recursive {
+
+    static public int fibonacci (int num) {
+        int result = 0; // initialization
+
+        if (num == 1) { // return 1 at first level
+            result = 1;
+        } else if (num == 2) { // return 1 at the second level
+            result = 1;
+        } else if (num >=3) {   // call fibonacci functions recursively
+            result = fibonacci(num-2) + fibonacci(num-1);
+        }
+
+        return result;
+
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Find number at given spot: ");
+        Scanner scanner = new Scanner(System.in);
+
+        int num = scanner.nextInt();
+        int sum = fibonacci(num);
+
+        System.out.println("Number at " + num + " is " + sum);
+    }
+
+}
