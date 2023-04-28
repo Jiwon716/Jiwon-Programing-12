@@ -1,0 +1,74 @@
+package com.jiwon.module3._2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Node {
+    private int nodeID;
+    private Integer leftID;
+    private Integer rightID;
+    private boolean visited;
+
+    public Node (int id) {
+        this.nodeID = id;
+        this.leftID = null;
+        this.rightID = null;
+    }
+
+    public Node (int id, Integer left, Integer right) {
+        this.nodeID = id;
+        this.leftID = left;
+        this.rightID = right;
+    }
+
+    public int getID() {
+        return this.nodeID;
+    }
+
+    public void setID(int id) {
+        this.nodeID = id;
+    }
+
+    public Integer getLeft() {
+        return this.leftID;
+    }
+
+    public Integer getRight() {
+        return this.rightID;
+    }
+
+    public boolean isLeaf() {
+        if (this.leftID == null && this.rightID == null)
+            return true;
+        else
+            return false;
+    }
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    @Override
+    public int hashCode() {
+        return nodeID;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Node){
+            Node other = (Node)obj;
+            if(this.nodeID == other.nodeID){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Node: " + nodeID;
+    }
+}
