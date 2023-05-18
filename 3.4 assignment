@@ -1,0 +1,58 @@
+package com.jiwon.module3._4;
+
+import java.util.Arrays;
+
+public class SortedMerge {
+    public static void main (String[] args) {
+
+        // Configure test input arrays
+        int testArr1[] = {27, 24, 23, 15, 10, 8};
+        int testArr2[] = {84, 81, 35, 25, 14, 11, 8, 5, 2};
+
+        int arrLen1 = testArr1.length;
+        int arrLen2 = testArr2.length;
+        int testArr3[] = new int[arrLen1 + arrLen2];
+
+        // call mergeArray function
+        mergeArray(testArr1, testArr2, testArr3);
+
+        // Show the merged array
+        System.out.println("Merged array contents are: ");
+        System.out.println(Arrays.toString(testArr3));
+    }
+
+    /**
+     * This function takes two sorted input array and merge inputs to the sorted result array
+     * @param inputArr1 First input sorted array
+     * @param inputArr2 Second input sorted array
+     * @param resultArr Result sorted array (inputArr1 + inputArr2
+     */
+    private static void mergeArray(int[] inputArr1, int[] inputArr2, int[] resultArr) {
+        int index1 = 0;
+        int index2 = 0;
+        int destPos = 0;
+
+        int arrLen1 = inputArr1.length;
+        int arrLen2 = inputArr2.length;
+
+        while (index1 < arrLen1 && index2 < arrLen2) {
+            if (inputArr1[index1] > inputArr2[index2]) {
+                resultArr[destPos++] = inputArr1[index1++];
+            } else {
+                resultArr[destPos++] = inputArr2[index2++];
+            }
+        }
+
+        // add remaining items in the first array
+        while (index1 < arrLen1) {
+            resultArr[destPos++] = inputArr1[index1++];
+        }
+
+        // add remaining items in the second array
+        while (index2 < arrLen2) {
+            resultArr[destPos++] = inputArr2[index2++];
+        }
+    }
+
+
+}
