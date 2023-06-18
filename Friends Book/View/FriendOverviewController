@@ -1,0 +1,187 @@
+package com.example.friend.view;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import com.example.friend.MainApp;
+import com.example.friend.model.Friend;
+import com.example.friend.util.DateUtil;
+
+public class FriendOverviewController {
+    @FXML
+    private TableView<Friend> friendTable;
+    @FXML
+    private TableColumn<Friend, String> firstNameColumn;
+    @FXML
+    private TableColumn<Friend, String> lastNameColumn;
+
+    @FXML
+    private Label firstNameLabel;
+    @FXML
+    private Label lastNameLabel;
+    @FXML
+    private Label streetLabel;
+    @FXML
+    private Label postalCodeLabel;
+    @FXML
+    private Label cityLabel;
+    @FXML
+    private Label birthdayLabel;
+
+    // Reference to the main application.
+    private MainApp mainApp;
+
+    /**
+     * The constructor.
+     * The constructor is called before the initialize() method.
+     */
+    public FriendOverviewController() {
+    }
+
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the fxml file has been loaded.
+     */
+    @FXML
+    private void initialize() {
+        // Initialize the friend table with the two columns.
+        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+        
+        // Clear friend details.
+        showFriendDetails(null);
+
+        // Listen for selection changes and show the friend details when changed.
+        friendTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showFriendDetails(newValue));
+    }
+
+    /**
+     * Is called by the main application to give a reference back to itself.
+     * 
+     * @param mainApp
+     */
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+
+        // Add observable list data to the table
+        friendTable.setItems(mainApp.getFriendData());
+    }
+    
+    /**
+     * Fills all text fields to show details about the friend.
+     * If the specified friend is null, all text fields are cleared.
+     * 
+     * @param friend the friend or null
+     */
+    private void showFriendDetails(Friend friend) {
+        if (friend != null) {
+            // Fill the labels with info from the friend object.
+            firstNameLabel.setText(friend.getFirstName());
+            lastNameLabel.setText(friend.getLastName());
+            streetLabel.setText(friend.getStreet());
+            postalCodeLabel.setText(Integer.toString(friend.getPostalCode()));
+            cityLabel.setText(friend.getCity());
+            birthdayLabel.setText(DateUtil.format(friend.getBirthday()));
+        } else {
+            // friend is null, remove all the text.
+            firstNameLabel.setText("");
+            lastNameLabel.setText("");
+            streetLabel.setText("");
+            postalCodeLabel.setText("");
+            cityLabel.setText("");
+            birthdayLabel.setText("");
+        }
+    }
+    
+    /**
+     * Called when the user clicks on the delete button.
+     */
+    @FXML
+    private void handleDeleteFriend() {
+        int selectedIndex = friendTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            friendTable.getItems().remove(selectedIndex);
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Friend Selected");
+            alert.setContentText("Please select a friend in the table.");
+            
+            alert.showAndWait();
+        }
+    }
+    
+    /**
+     * Called when the user clicks the new button. Opens a dialog to edit
+     * details for a new friend.
+     */
+    @FXML
+    private void handleNewFriend() {
+        Friend tempFriend = new Friend();
+        boolean okClicked = mainApp.showFriendEditDialog(tempFriend);
+        if (okClicked) {
+            mainApp.getFriendData().add(tempFriend);
+        }
+    }
+
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected friend.
+     */
+    @FXML
+    private void handleEditFriend() {
+        Friend selectedFriend = friendTable.getSelectionModel().getSelectedItem();
+        if (selectedFriend != null) {
+            boolean okClicked = mainApp.showFriendEditDialog(selectedFriend);
+            if (okClicked) {
+                showFriendDetails(selectedFriend);
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Friend Selected");
+            alert.setContentText("Please select a friend in the table.");
+            
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected friend.
+     */
+    @FXML
+    private void handleLoadFriend() {
+
+        boolean okClicked = mainApp.showSelectFriendBookDialog();
+        if (okClicked) {
+//            showFriendDetails(selectedFriend);
+        }
+
+    }
+
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected friend.
+     */
+    @FXML
+    private void handleStoreFriend() {
+
+        boolean okClicked = mainApp.showStoreFriendBookDialog();
+        if (okClicked) {
+//            showFriendDetails(selectedFriend);
+        }
+
+    }
+    
+ }
+
