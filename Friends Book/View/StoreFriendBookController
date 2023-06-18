@@ -1,0 +1,143 @@
+ackage com.example.friend.view;
+
+import com.example.friend.MainApp;
+import com.example.friend.model.Friend;
+import com.example.friend.util.DateUtil;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.*;
+
+
+public class StoreFriendBookController {
+    @FXML
+    private TextField friendGroupName;
+
+    private Stage dialogStage;
+    private boolean okClicked = false;
+
+    // Reference to the main application.
+    private MainApp mainApp;
+
+    /**
+     * The constructor.
+     * The constructor is called before the initialize() method.
+     */
+    public StoreFriendBookController() {
+    }
+
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the fxml file has been loaded.
+     */
+    @FXML
+    private void initialize() {
+    }
+
+    /**
+     * Sets the stage of this dialog.
+     *
+     * @param dialogStage
+     */
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+
+
+    /**
+     * Called when the user clicks ok to store friend data.
+     */
+    @FXML
+    private void handleOk() {
+        if (isInputValid()) {
+            ObservableList<Friend> friendData = mainApp.getFriendData();
+
+            OutputStream os = null;
+            try {
+                os = new FileOutputStream(new File(friendGroupName.getText()));
+                // retrieve friend object from friend data list
+                // then convert it to string
+                for (Friend f : friendData) {
+                    String frLine = "" + f.getFirstName() + "/" + f.getLastName() + "/" + f.getStreet() + "/" + String.valueOf(f.getPostalCode()) + "/" + f.getCity() + "/" + f.getBirthday().toString() + "\n";
+                    os.write(frLine.getBytes(), 0, frLine.length());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally{
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // Show success message as information
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Stored Successfully");
+            alert.setHeaderText("Stored");
+            alert.setContentText("Friend Information is stored to " + friendGroupName.getText());
+
+            alert.showAndWait();
+
+            okClicked = true;
+            dialogStage.close();
+        }
+    }
+
+    /**
+     * Validates the user input in the text fields.
+     *
+     * @return true if the input is valid
+     */
+    private boolean isInputValid() {
+        String errorMessage = "";
+
+        if (friendGroupName.getText() == null || friendGroupName.getText().length() == 0) {
+            errorMessage += "No valid group name!\n";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Invalid Group Name");
+            alert.setHeaderText("Please correct given group name");
+            alert.setContentText(errorMessage);
+
+            alert.showAndWait();
+
+            return false;
+        }
+    }
+
+    public boolean isOkClicked() {
+        return okClicked;
+    }
+
+    /**
+     * Is called by the main application to give a reference back to itself.
+     *
+     * @param mainApp
+     */
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
+
+    /**
+     * Called when the user clicks cancel.
+     */
+    @FXML
+    private void handleCancel() {
+        dialogStage.close();
+    }
+
+}
