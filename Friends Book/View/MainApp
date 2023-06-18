@@ -1,0 +1,275 @@
+package com.example.friend;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Scanner;
+
+import com.example.friend.view.SelectFriendBookController;
+import com.example.friend.view.StoreFriendBookController;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import com.example.friend.model.Friend;
+import com.example.friend.view.FriendEditDialogController;
+import com.example.friend.view.FriendOverviewController;
+
+public class MainApp extends Application {
+
+    private Stage primaryStage;
+    private BorderPane rootLayout;
+    
+    /**
+     * The data as an observable list of Friends.
+     */
+    private ObservableList<Friend> friendData = FXCollections.observableArrayList();
+
+    /**
+     * Constructor
+     */
+    public MainApp() {
+        // Add some sample data
+        friendData.add(new Friend("Test1", "Friend"));
+        friendData.add(new Friend("Test2", "Friend"));
+        friendData.add(new Friend("Test3", "Friend"));
+        friendData.add(new Friend("Test4", "Friend"));
+        friendData.add(new Friend("Test5", "Friend"));
+        friendData.add(new Friend("Test6", "Friend"));
+        friendData.add(new Friend("Test7", "Friend"));
+        friendData.add(new Friend("Test8", "Friend"));
+        friendData.add(new Friend("Test9", "Friend"));
+    }
+
+    /**
+     * Returns the data as an observable list of friends.
+     * @return
+     */
+    public ObservableList<Friend> getFriendData() {
+        return friendData;
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("FriendBook");
+
+        initRootLayout();
+
+        showFriendOverview();
+    }
+
+    /**
+     * Initializes the root layout.
+     */
+    public void initRootLayout() {
+        try {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+            rootLayout = (BorderPane) loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Shows the friend overview inside the root layout.
+     */
+    public void showFriendOverview() {
+        try {
+            // Load friend overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/FriendOverview.fxml"));
+            AnchorPane friendOverview = (AnchorPane) loader.load();
+
+            // Set friend overview into the center of root layout.
+            rootLayout.setCenter(friendOverview);
+
+            // Give the controller access to the main app.
+            FriendOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Opens a dialog to edit details for the specified friend. If the user
+     * clicks OK, the changes are saved into the provided friend object and true
+     * is returned.
+     * 
+     * @param friend the friend object to be edited
+     * @return true if the user clicked OK, false otherwise.
+     */
+    public boolean showFriendEditDialog(Friend friend) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/FriendEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Friend");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the friend into the controller.
+            FriendEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setFriend(friend);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Opens a dialog to edit details for the specified friend. If the user
+     * clicks OK, the changes are saved into the provided friend object and true
+     * is returned.
+     *
+     * @return true if the user clicked OK, false otherwise.
+     */
+    public boolean showSelectFriendBookDialog() {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/SelectFriendBookDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Select Friend Book");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the friend into the controller.
+            SelectFriendBookController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            String selectedBook = "";
+            if (controller.isOkClicked()) {
+                selectedBook = controller.getSelectedBook();
+                setFriendData(selectedBook);
+            }
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Opens a dialog to store friend data to a file
+     * User can provide where to store.
+     * @return true if the user clicked OK, false otherwise.
+     */
+    public boolean showStoreFriendBookDialog() {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/StoreFriendBookDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Store Friend Book");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the friend into the controller.
+            StoreFriendBookController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Opens a dialog to set friend data from a selected file
+     * @return true if the user clicked OK, false otherwise.
+     */
+    public void setFriendData(String friendBook) {
+        // Clear existing friend book to be displayed
+        friendData.clear();
+
+        System.out.println("file: " + friendBook);
+        try
+        {
+            //the file to be opened for reading
+            FileInputStream fis = new FileInputStream(friendBook);
+            Scanner sc = new Scanner(fis);    //file to be scanned
+            //returns true if there is another line to read
+            while(sc.hasNextLine())
+            {
+                String friendInfo = sc.nextLine();
+                String[] fInfo = friendInfo.split("/");
+                // 0: first Name, 1: last name, 2: street, 3: postal code, 4: city, 5: birthday
+                // String date = "2016-08-16";
+                String firstN = fInfo[0];
+                String lastN = fInfo[1];
+                String street = fInfo[2];
+                Integer postal = Integer.parseInt(fInfo[3]);
+                String city = fInfo[4];
+                LocalDate birthday = LocalDate.parse(fInfo[5]);
+
+                friendData.add(new Friend(firstN, lastN, street, postal, city, birthday));
+            }
+            sc.close();     //closes the scanner
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    /**
+     * Returns the main stage.
+     * @return
+     */
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
