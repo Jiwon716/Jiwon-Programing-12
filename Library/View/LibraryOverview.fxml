@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.library.view.LibraryOverviewController">
+   <children>
+      <SplitPane dividerPositions="0.5978260869565217" layoutX="153.0" layoutY="70.0" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TableView fx:id="libraryTable" layoutX="-12.0" layoutY="49.0" prefHeight="298.0" prefWidth="448.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
+                      <TableColumn fx:id="authorColumn" prefWidth="87.0" text="Author" />
+                        <TableColumn fx:id="genreColumn" prefWidth="75.0" text="Genre" />
+                        <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="Quantity" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="134.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="45.0" prefHeight="17.0" prefWidth="157.0" text="Selected Book Overview" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="45.0" />
+                  <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                    <buttons>
+                        <Button fx:id="borrowButton" mnemonicParsing="false" onAction="#handleBorrowBook" prefHeight="26.0" prefWidth="70.0" text="Borrow" />
+                        <Button fx:id="returnButton" mnemonicParsing="false" onAction="#handleReturnBook" text="Return" />
+                    </buttons>
+                  </ButtonBar>
+                  <GridPane layoutX="14.0" layoutY="77.0" prefHeight="169.0" prefWidth="200.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="78.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="122.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="63.0" text="Title" />
+                        <Label text="Author" GridPane.rowIndex="1" />
+                        <Label text="Genre" GridPane.rowIndex="2" />
+                        <Label text="ID Num." GridPane.rowIndex="3" />
+                        <Label text="Quantity" GridPane.rowIndex="4" />
+                        <Label text="Status" GridPane.rowIndex="5" />
+                        <Label fx:id="titleLabel" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="authorLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="genreLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="idLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="quantityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="statusLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                     </children>
+                  </GridPane>
+                  <Label fx:id="loggedUser" layoutX="102.0" layoutY="15.0" prefHeight="17.0" prefWidth="121.0" text="Label" />
+                  <Label layoutX="14.0" layoutY="15.0" text="Logged in User: " />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
